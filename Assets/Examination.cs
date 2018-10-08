@@ -47,7 +47,7 @@ public class Examination : MonoBehaviour {
         {
             transform.Translate(0, -2f * Time.deltaTime, 0, Space.Self);
         }
-        // Byter färger när man trycker space.
+        // Byter till en slumpmäsig färg när man trycker space.
         if (Input.GetKeyDown(KeyCode.Space))
         {
             float RandomColor1 = Random.Range(0f, 1f);
