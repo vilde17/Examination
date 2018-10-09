@@ -9,6 +9,7 @@ public class Examination : MonoBehaviour {
     public SpriteRenderer rend2;
     public SpriteRenderer rend3;
     public int RandomColor = 0;
+    public int lastPrint;
 	// Use this for initialization
 	void Start () {
         rend1.color = color;
@@ -18,11 +19,12 @@ public class Examination : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        // Beräknar tiden.
-        timer = timer + Time.deltaTime;
-        //Skriver Timerna i konsolen.
-        Debug.Log(string.Format("Timer: {0}", timer));
-
+        // Beräknar tiden varje sekund.
+        if(Time.time > lastPrint + 1f)
+        {
+            lastPrint = Mathf.RoundToInt(Time.time);
+            Debug.Log("Time: " + lastPrint);
+        }
         
         //Gör så att skeppet rör sig hela tiden.
         transform.Translate(0, 4f * Time.deltaTime, 0, Space.Self);
@@ -53,14 +55,34 @@ public class Examination : MonoBehaviour {
             float RandomColor1 = Random.Range(0f, 1f);
             float RandomColor2 = Random.Range(0f, 1f);
             float RandomColor3 = Random.Range(0f, 1f);
-
+            
             Color col = new Color(RandomColor1, RandomColor2, RandomColor3);
-
+            
                 rend1.color = col;
                 rend2.color = col;
                 rend3.color = col;
            
-
+          
         }
-	}
+        //När x värdet blir mindre än -10 flyttas den till 10 på x axeln
+        if (transform.position.x < -10)
+        {
+            transform.position = new Vector3(10, (transform.position.y));
+        }
+        //När x värdet går över 10 flyttas skeppet till -10 på x axeln
+        if (transform.position.x > 10)
+        {
+            transform.position = new Vector3(-10, (transform.position.y));
+        }
+        //När y värdet blir mindre än -6 fluttas skeppet till 6 på y axeln
+        if (transform.position.y < -6)
+        {
+            transform.position = new Vector3((transform.position.x), 6);
+        }
+        //När y värdet går över 6 flyttas skeppet till -6 på y axeln
+        if (transform.position.y > 6)
+        {
+            transform.position = new Vector3((transform.position.x), -6);
+        }
+    }
 }
