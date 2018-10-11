@@ -10,11 +10,19 @@ public class Examination : MonoBehaviour {
     public SpriteRenderer rend3;
     public int RandomColor = 0;
     public int lastPrint;
+    public float random;
+    public float speed = 4f;
+    public float rotationspeed = -180f;
 	// Use this for initialization
 	void Start () {
         rend1.color = color;
         rend2.color = color;
         rend3.color = color;
+        //Slumpmäsig hastighet på skeppet
+        float random = (Random.Range(1f, 10f));
+        speed = (random);
+        //Slumpmäsig position i start av spel
+        transform.Translate(new Vector3(Random.Range(-9f, 9f), Random.Range(-5f, 5f)));
 	}
 	
 	// Update is called once per frame
@@ -27,11 +35,11 @@ public class Examination : MonoBehaviour {
         }
         
         //Gör så att skeppet rör sig hela tiden.
-        transform.Translate(0, 4f * Time.deltaTime, 0, Space.Self);
+        transform.Translate(0, speed * Time.deltaTime, 0, Space.Self);
         //Gör så att när man trycker på D knappen så svänger skeppet åt höger, och gör den blå.
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Rotate(0, 0, -180f * Time.deltaTime);
+            transform.Rotate(0, 0, rotationspeed * Time.deltaTime);
             rend1.color = Color.blue;
             rend2.color = Color.blue;
             rend3.color = Color.blue;
@@ -39,7 +47,7 @@ public class Examination : MonoBehaviour {
         //Gör så att när man trycker på A knappen så svänger skeppet vänster, och gör den grön.
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(0, 0, 90f * Time.deltaTime);
+            transform.Rotate(0, 0, -rotationspeed /2 * Time.deltaTime);
             rend1.color = Color.green;
             rend2.color = Color.green;
             rend3.color = Color.green;
@@ -47,10 +55,10 @@ public class Examination : MonoBehaviour {
         //Gör så att när man trycker på S så går den hälften av sin fart.
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(0, -2f * Time.deltaTime, 0, Space.Self);
+            transform.Translate(0, -speed / 2 * Time.deltaTime, 0, Space.Self);
         }
         // Byter till en slumpmäsig färg när man trycker space.
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
             float RandomColor1 = Random.Range(0f, 1f);
             float RandomColor2 = Random.Range(0f, 1f);
